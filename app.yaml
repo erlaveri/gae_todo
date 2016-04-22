@@ -1,0 +1,26 @@
+application: engaged-proxy-128923
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+# [START handlers]
+handlers:
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+
+- url: /static
+  static_dir: static
+
+- url: /.*
+  script: todo.app
+# [END handlers]
+
+# [START libraries]
+libraries:
+- name: webapp2
+  version: latest
+- name: jinja2
+  version: latest
+# [END libraries]

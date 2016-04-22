@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html lang="en">
+<head>
+    {% block head_top %}{% endblock %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <title>ToDo</title>
+
+    <link rel="stylesheet" href="/static/angular-material/angular-material.min.css">
+    <link rel="stylesheet" href="static/app/app.css">
+</head>
+
+
+<body ng-controller="MainController" layout="column">
+
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <h2><span>ToDo App</span></h2>
+        <span flex></span>
+        <md-button ng-click="gotolink('{{ url|safe }}')" aria-label="{{ url_linktext }}">
+            {{ url_linktext }}
+        </md-button>
+    </div>
+</md-toolbar>
+{% raw %}
+<md-content layout-padding flex>
+    <div>
+        <div class="todo__item" ng-class="{strike: todo.done}" ng-repeat="todo in todos">
+            <md-checkbox ng-change="ChangeTodo(todo)" ng-disabled="todo.disabled" ng-model="todo.done">
+                {{ todo.text }}
+            </md-checkbox>
+            <md-icon ng-click="DeleteTodo(todo)" md-svg-src="/static/svg/ic_delete_forever_black_24px.svg"></md-icon>
+        </div>
+    </div>
+
+
+    <div ng-hide="addNewTodoState" layout="row" style="max-height: 70px;">
+        <md-input-container flex="33">
+            <label>Input text here</label>
+            <input ng-model="newTodo">
+        </md-input-container>
+
+        <md-button ng-click="SaveTodo()" class="md-primary">Save</md-button>
+
+        <md-button ng-click="Cancel()" class="md-warn">Cancel</md-button>
+    </div>
+
+    <div>
+        <md-button ng-show="addNewTodoState" ng-click="AddNewTodo()" class="md-fab">
+            <md-icon md-svg-src="/static/svg/ic_add_white_24px.svg"></md-icon>
+        </md-button>
+    </div>
+
+
+</md-content>
+{% endraw %}
+
+<script src="/static/angular/angular.min.js"></script>
+<script src="/static/angular-animate/angular-animate.min.js"></script>
+<script src="/static/angular-aria/angular-aria.min.js"></script>
+<script src="/static/angular-messages/angular-messages.min.js"></script>
+<script src="/static/angular-material/angular-material.min.js"></script>
+<script src="/static/angular-resource/angular-resource.min.js"></script>
+<script src="/static/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+
+<script src="/static/app/app.js"></script>
+
+</body>
+</html>
+{% endautoescape %}
